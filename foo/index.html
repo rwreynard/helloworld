@@ -1,23 +1,45 @@
 <!doctype html>
  
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <title>jQuery UI Datepicker - Default functionality</title>
-  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
-  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
-  <link rel="stylesheet" href="/resources/demos/style.css" />
-  <script>
-  $(function() {
-    $( "#datepicker" ).datepicker();
-  });
-  </script>
+<head> <title>Example</title> 
+   <script id="sap-ui-bootstrap" type="text/javascript" 
+     src="/sap/ui5/1/resources/sap-ui-core.js" 
+     data-sap-ui-language="en"
+     data-sap-ui-theme="sap_goldreflection" 
+     data-sap-ui-libs="sap.ui.core,sap.ui.commons,sap.ui.ux3,sap.ui.table"> 
+   </script> 
+   <script type="text/javascript" src="/sap/ui5/1/resources/jquery-sap.js"></script> 
+   <script> function doSomething() { 
+                $.ajax({ 
+                    url: "logic.xsjs", 
+                    type: "GET", 
+                    beforeSend: function(xhr) { 
+                        xhr.setRequestHeader("X-CSRF-Token", "Fetch"); 
+                    }, 
+                    success: function(data, textStatus, XMLHttpRequest) { 
+                        var token = XMLHttpRequest.getResponseHeader('X-CSRF-Token'); 
+                        var data = "somePayLoad"; 
+                        $.ajax({ 
+                            url: "logic.xsjs", 
+                            type: "POST", 
+                            data: data, 
+                            beforeSend: function(xhr) { 
+                                xhr.setRequestHeader("X-CSRF-Token", token); 
+                            }, 
+                            success: function() { 
+                                alert("works"); 
+                            }, error: function() { 
+                                alert("works not"); 
+                            } 
+                        }); 
+                    } 
+                }); 
+             } 
+   </script>
 </head>
-<body>
- 
-<p>Date: <input type="text" id="datepicker" /></p>
- 
- 
+<body> 
+    <div> 
+        <a href="#" onClick="doSomething();">Do something</a> 
+    </div>
 </body>
 </html>
